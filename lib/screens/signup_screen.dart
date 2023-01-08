@@ -8,7 +8,6 @@ import 'package:instagram_clone_flutter/responsive/responsive_layout.dart';
 import 'package:instagram_clone_flutter/responsive/web_screen_layout.dart';
 import 'package:instagram_clone_flutter/screens/login_screen.dart';
 import 'package:instagram_clone_flutter/utils/colors.dart';
-import 'package:instagram_clone_flutter/utils/global_variable.dart';
 import 'package:instagram_clone_flutter/utils/utils.dart';
 import 'package:instagram_clone_flutter/widgets/text_field_input.dart';
 
@@ -73,6 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   selectImage() async {
+    //this cannot be dynamic
     Uint8List im = await pickImage(ImageSource.gallery);
     // set state because we need to display the image we selected on the circle avatar
     setState(() {
@@ -103,6 +103,8 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 64,
               ),
+              //circular widget to accept and show our selected file
+
               Stack(
                 children: [
                   _image != null
@@ -117,6 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               'https://i.stack.imgur.com/l60Hf.png'),
                           backgroundColor: Colors.pink,
                         ),
+                  //for the lil icon bottom
                   Positioned(
                     bottom: -10,
                     left: 80,
@@ -163,6 +166,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(
                 height: 24,
               ),
+              //button login
               InkWell(
                 child: Container(
                   child: !_isLoading

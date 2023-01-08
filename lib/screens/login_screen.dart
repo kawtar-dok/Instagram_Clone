@@ -6,15 +6,18 @@ import 'package:instagram_clone_flutter/responsive/responsive_layout.dart';
 import 'package:instagram_clone_flutter/responsive/web_screen_layout.dart';
 import 'package:instagram_clone_flutter/screens/signup_screen.dart';
 import 'package:instagram_clone_flutter/utils/colors.dart';
-import 'package:instagram_clone_flutter/utils/global_variable.dart';
 import 'package:instagram_clone_flutter/utils/utils.dart';
 import 'package:instagram_clone_flutter/widgets/text_field_input.dart';
 
+//Login Screen UI
+//i did used the statefulwidget cuz this is going to ve text editing controller
+//we re going to call and set state
+//all my element gonna be cented
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -22,6 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
+//i did create this dispose
+//and i need to clear off these
+// controllers as soon as the widgets gets  disposed
   @override
   void dispose() {
     super.dispose();
@@ -59,46 +65,59 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      //i will add a safe area that going to have a child is going to ve
+      //a container why a container cuz we need to add some padding
+      //and we need to set the width of our app
       body: SafeArea(
         child: Container(
-          padding: MediaQuery.of(context).size.width > webScreenSize
-              ? EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 3)
-              : const EdgeInsets.symmetric(horizontal: 32),
-          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          width: double.infinity, //i need the full width
           child: Column(
+            // cross... becuz we want itto be centred in row format
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              //becuse our img still at the top so to fixed i did add this :
+              //so i did create some spacing from the top
               Flexible(
                 child: Container(),
                 flex: 2,
               ),
+
+              //svg image
               SvgPicture.asset(
                 'assets/ic_instagram.svg',
                 color: primaryColor,
                 height: 64,
               ),
-              const SizedBox(
-                height: 64,
-              ),
+              //for some spacing
+              const SizedBox(height: 64),
+
+              //Text field input for email
               TextFieldInput(
-                hintText: 'Enter your email..',
+                hintText: 'Enter your email',
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _emailController,
               ),
               const SizedBox(
                 height: 24,
               ),
+
+              //Text field input password
               TextFieldInput(
-                hintText: 'Enter your password..',
+                hintText: 'Enter your password',
                 textInputType: TextInputType.text,
                 textEditingController: _passwordController,
+                //this will told me bli hada is a password format
                 isPass: true,
               ),
               const SizedBox(
                 height: 24,
               ),
+
+              //button login
+              //this way is better so m gonna use a containeer to create a button
+              //in otherwise i can use : material button / elevated button / text button
+              //clickibale button
               InkWell(
                 child: Container(
                   child: !_isLoading
@@ -127,6 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(),
                 flex: 2,
               ),
+
+              //Transitioning to signing up
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -136,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
+                  //clickibale button
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
